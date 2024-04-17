@@ -1,0 +1,44 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: sr-vecinet-api-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: ms-vecinet-auth
+          uri: lb://ms-vecinet-auth
+          predicates:
+            - Path=/auth/**
+          filters:
+            - PrefixPath=/api
+            - AddResponseHeader=X-Response-Default-Gabriel, Default-Espina
+
+# Eureka client
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+    instanceId: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+loggin.level.root: info
+loggin.level.org.springframework.cloud.gateway.route.RouteDefinitionRouteLocator: info
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          gateway: TRACE
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
