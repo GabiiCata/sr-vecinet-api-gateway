@@ -10,12 +10,18 @@ public enum EMicroservice {
         this.serviceName = serviceName;
     }
 
+
+
     public String getUri(){
         return "lb://" + this.serviceName;
     }
 
+    public String getContextPath(){
+        return "/api/" + this.serviceName;
+    }
+
     public String getPath(){
-        return "/api/" + this.serviceName + "/**";
+        return getContextPath() + "/**";
     }
 
 }
