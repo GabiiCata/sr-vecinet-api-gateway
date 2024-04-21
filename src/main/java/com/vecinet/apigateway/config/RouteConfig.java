@@ -17,6 +17,7 @@ public class RouteConfig {
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
                 .route( EMicroservice.MS_VECINET_AUTH.name() , getRoute( EMicroservice.MS_VECINET_AUTH ) )
+                .route( EMicroservice.MS_VECINET_POST.name() , getRoute( EMicroservice.MS_VECINET_POST ) )
                 .build();
     }
 

@@ -2,7 +2,8 @@ package com.vecinet.apigateway.config;
 
 public enum EMicroservice {
 
-    MS_VECINET_AUTH("ms-vecinet-auth");
+    MS_VECINET_AUTH("ms-vecinet-auth"),
+    MS_VECINET_POST("ms-vecinet-post");
 
     private final String serviceName;
     EMicroservice(String serviceName){
