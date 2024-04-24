@@ -2,6 +2,7 @@ package com.vecinet.apigateway.config;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -21,10 +22,14 @@ public class JwtAuthenticationFilter implements GlobalFilter {
     @Value("${jwt.secret}")
     private String secretKey;
 
+    @Autowired
+    private Microservice microservice;
+
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        if (exchange.getRequest().getURI().getPath().equals( EMicroservice.MS_VECINET_AUTH.getContextPath() + "/authenticate")) {
+        if (exchange.getRequest().getURI().getPath().equals( "/api/" + microservice.getMsVecinetAuthContextPath() + "/authenticate") ||
+                exchange.getRequest().getURI().getPath().contains("swagger-ui")){
             return chain.filter(exchange);
         }
 

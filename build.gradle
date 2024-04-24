@@ -5,7 +5,8 @@ plugins {
 }
 
 group = 'com.vecinet'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.1'
+archivesBaseName = "sr-vecinet-api-gateway"
 
 java {
 	sourceCompatibility = '21'
@@ -32,7 +33,6 @@ dependencies {
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
 	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	implementation 'javax.xml.bind:jaxb-api:2.3.1'
