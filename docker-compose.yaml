@@ -1,0 +1,16 @@
+version: '3.8'
+services:
+
+  # Service for the api gateway
+  sr-vecinet-api-gateway:
+    container_name: sr-vecinet-api-gateway
+    build: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./sr-vecinet-api-gateway:/app
+      - gradle-cache:/home/gradle/.gradle
+    networks:
+      - default
+volumes:
+  gradle-cache:

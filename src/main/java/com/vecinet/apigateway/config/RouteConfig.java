@@ -1,5 +1,6 @@
 package com.vecinet.apigateway.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.route.Route;
 import org.springframework.cloud.gateway.route.RouteLocator;
 import org.springframework.cloud.gateway.route.builder.Buildable;
@@ -13,16 +14,24 @@ import java.util.function.Function;
 @Configuration
 public class RouteConfig {
 
+
+    @Autowired
+    private Microservice microservice;
+
     @Bean
     public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()
-                .route( EMicroservice.MS_VECINET_AUTH.name() , getRoute( EMicroservice.MS_VECINET_AUTH ) )
-                .route( EMicroservice.MS_VECINET_POST.name() , getRoute( EMicroservice.MS_VECINET_POST ) )
+                .route( microservice.getMsVecinetAuthContextPath() , getRoute( microservice.getMsVecinetAuthContextPath() ,microservice.getMsVecinetAuthUrl()) )
+                .route( microservice.getMsVecinetPostPortContextPath() , getRoute( microservice.getMsVecinetPostPortContextPath(), microservice.getMsVecinetPostUrl()) )
                 .build();
     }
 
-    public Function<PredicateSpec, Buildable<Route>> getRoute( EMicroservice microservice ) {
-        return ps -> ps.path( microservice.getPath() ).uri( microservice.getUri() );
+    public Function<PredicateSpec, Buildable<Route>> getRoute( String contextPath, String url ) {
+        return ps -> ps.path( getPath(contextPath) ).uri( url );
+    }
+
+    private String getPath(String microservice){
+        return "/api/" + microservice + "/**";
     }
 
 }

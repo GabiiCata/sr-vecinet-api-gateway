@@ -2,7 +2,7 @@ package com.vecinet.apigateway.config;
 
 public enum EMicroservice {
 
-    MS_VECINET_AUTH("ms-vecinet-auth"),
+    MS_VECINET_AUTH("MS_VECINET_AUTH"),
     MS_VECINET_POST("ms-vecinet-post");
 
     private final String serviceName;
@@ -13,7 +13,7 @@ public enum EMicroservice {
 
 
     public String getUri(){
-        return "lb://" + this.serviceName;
+        return "http://" + this.serviceName;
     }
 
     public String getContextPath(){
